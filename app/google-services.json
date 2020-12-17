@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "12301964619",
+    "project_id": "habit-track-649f1",
+    "storage_bucket": "habit-track-649f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12301964619:android:38ae391e897ef0725884ce",
+        "android_client_info": {
+          "package_name": "com.lake1453.habit_track"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12301964619-8p6ldtbnqb8nmf35b0qo5u4ugmmi71va.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATzu3yolpjkoWwK5lz75H4SZATB-7FA0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12301964619-8p6ldtbnqb8nmf35b0qo5u4ugmmi71va.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
