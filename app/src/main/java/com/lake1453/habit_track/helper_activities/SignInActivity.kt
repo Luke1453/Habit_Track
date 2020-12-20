@@ -7,6 +7,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.text.TextUtils
 import android.util.Log
 import android.view.Window
 import android.widget.Button
@@ -22,6 +23,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.OAuthProvider
+import com.google.firebase.auth.ktx.actionCodeSettings
 import com.lake1453.habit_track.MainActivity
 import com.lake1453.habit_track.R
 import com.lake1453.habit_track.dialogs.EmailDialog
@@ -32,7 +34,6 @@ class SignInActivity : AppCompatActivity() {
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var googleSignIn: GoogleSignInClient
-    var email: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,10 +54,16 @@ class SignInActivity : AppCompatActivity() {
 
         // Configuring Sign in with email
         sign_in_email.setOnClickListener {
-            val emailDialog = EmailDialog()
-            emailDialog.show(supportFragmentManager,  "email Dialog")
+            val email: String = email_edit_text.text.toString()
+            val password: String = password_edit_text.text.toString()
+            if (email.isEmailValid() && password.isNotBlank()) {
+                doEmailAuth(email, password)
+            }
         }
+    }
 
+    private fun String.isEmailValid(): Boolean {
+        return !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
     }
 
     /////////////////////////////////////////////////////////// Firebase google Auth ////////////////////////////////////////////////////////////////////////////////
@@ -108,5 +115,35 @@ class SignInActivity : AppCompatActivity() {
 
     ///////////////////////////////////////////////////////////////////////////// Firebase Email Auth /////////////////////////////////////////////////////////////
 
+    private fun doEmailAuth(email: String, password: String) {
+        mAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { signInTask ->
+                if (signInTask.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithEmail:success")
+                    val mainActivityIntent = Intent(this, MainActivity::class.java)
+                    startActivity(mainActivityIntent)
+                    finish()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithEmail:failure, signing up user", signInTask.exception)
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this) { createUserTask ->
+                            if (createUserTask.isSuccessful) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "createUserWithEmail:success")
+                                val mainActivityIntent = Intent(this, MainActivity::class.java)
+                                startActivity(mainActivityIntent)
+                                finish()
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(TAG, "createUserWithEmail:failure", createUserTask.exception)
+                            }
+                        }
+                }
+            }
+
+
+    }
 
 }
