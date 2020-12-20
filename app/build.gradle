@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 //for firebase
 apply plugin: 'com.google.gms.google-services'
@@ -44,7 +45,11 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    // For emojis
     implementation 'androidx.emoji:emoji:1.1.0'
+    implementation "com.android.support:support-emoji-bundled:$version"
+    implementation 'androidx.wear:wear:1.0.0'
+    implementation 'androidx.preference:preference:1.1.0'
 
     // Auto Gen for testing
     testImplementation 'junit:junit:4.12'
@@ -58,6 +63,8 @@ dependencies {
     // For Firebase
     implementation platform('com.google.firebase:firebase-bom:26.1.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
     // Add the dependencies for any other desired Firebase products
     // https://firebase.google.com/docs/android/setup#available-libraries
 
@@ -76,6 +83,7 @@ dependencies {
 
     // Room components
     implementation "androidx.room:room-ktx:2.2.5"
+    compileOnly 'com.google.android.wearable:wearable:2.5.0'
     kapt "androidx.room:room-compiler:2.2.5"
     androidTestImplementation "androidx.room:room-testing:2.2.5"
 
@@ -94,3 +102,4 @@ dependencies {
 
 
 }
+apply plugin: 'com.google.gms.google-services'

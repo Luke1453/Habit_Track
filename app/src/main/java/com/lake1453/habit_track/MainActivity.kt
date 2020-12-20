@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.emoji.bundled.BundledEmojiCompatConfig
+import androidx.emoji.text.EmojiCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         navigationView.setupWithNavController(navController)
 
         setupActionBarWithNavController(navController, appBarConfiguration)
+
     }
 
     // overriding fun to access menu items from drawer

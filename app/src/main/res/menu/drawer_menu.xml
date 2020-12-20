@@ -4,9 +4,12 @@
     <group>
         <item
             android:id="@+id/viewHabits"
-            android:title="Item" />
+            android:title="@string/view_habits" />
         <item
             android:id="@+id/createHabit"
-            android:title="Item" />
+            android:title="@string/create_habbit" />
+        <item
+            android:id="@+id/settingsFrag"
+            android:title="@string/user_settings" />
     </group>
 </menu>

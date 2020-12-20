@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lake1453.habit_track">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -10,8 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".SplashScreen">
+        <activity android:name=".helper_activities.SignInActivity" />
+        <activity android:name=".helper_activities.LogIn" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".helper_activities.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

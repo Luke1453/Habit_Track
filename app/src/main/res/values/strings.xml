@@ -1,5 +1,31 @@
 <resources>
     <string name="app_name">Habit Track</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="create_habit__appbar_label">Create New Habit &#10024;</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+
+    <string name="sign_in_with_google_text">Sign In With Google</string>
+    <string name="sign_in_with_github_text">Sign In With Github</string>
+    <string name="sign_in_with_email_text">Sign In With Email</string>
+    <string name="sign_in_text">Please Sign In to Use Habit Track</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="log_out">Log Out</string>
+    <string name="user_settings">User Settings</string>
+    <string name="create_habbit">Create Habbit</string>
+    <string name="view_habits">View Habits</string>
+    <string name="sign_in_with_facebook">sign in with facebook</string>
+    <string name="please_enter_your_email">Please Enter Your Email</string>
 </resources>

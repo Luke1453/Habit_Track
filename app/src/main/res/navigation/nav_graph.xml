@@ -7,16 +7,24 @@
     app:startDestination="@id/viewHabits">
     <fragment
         android:id="@+id/createHabit"
-        android:name="com.lake1453.habit_track.CreateHabit"
-        android:label="fragment_create_habit"
+        android:name="com.lake1453.habit_track.fragments.CreateHabit"
+        android:label="@string/create_habit__appbar_label"
         tools:layout="@layout/fragment_create_habit" />
     <fragment
         android:id="@+id/viewHabits"
-        android:name="com.lake1453.habit_track.viewHabits"
+        android:name="com.lake1453.habit_track.fragments.viewHabits"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_view_habits">
         <action
             android:id="@+id/action_viewHabits_to_createHabit"
             app:destination="@id/createHabit" />
+        <action
+            android:id="@+id/action_viewHabits_to_settingsFrag"
+            app:destination="@id/settingsFrag" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFrag"
+        android:name="com.lake1453.habit_track.fragments.Settings"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
