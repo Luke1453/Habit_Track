@@ -2,12 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group>
-        <item
-            android:id="@+id/viewHabits"
-            android:title="@string/view_habits" />
+<!--        <item-->
+<!--            android:id="@+id/viewHabits"-->
+<!--            android:title="@string/view_habits" />-->
 <!--        <item-->
 <!--            android:id="@+id/createHabit"-->
 <!--            android:title="@string/create_habbit" />-->
+        <item
+            android:id="@+id/viewAllHabitsFragment"
+            android:title="@string/your_habits" />
         <item
             android:id="@+id/settingsFrag"
             android:title="@string/user_settings" />

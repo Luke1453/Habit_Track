@@ -8,9 +8,9 @@ data class Habit(
     var id: Long = 0L,
     var name: String = "",
     var description: String = "",
-    var startTime: Date,
-    val repeatable: Boolean,
-    var repeatPeriod: Int,
+    var startTime: Date = Date(),
+    val repeatable: Boolean = false,
+    var repeatPeriod: Int = 0
 
 )
 

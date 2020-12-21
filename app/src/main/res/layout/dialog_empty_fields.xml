@@ -13,7 +13,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
-        android:text="Some Fields are Empty"
+        android:text="@string/some_fields_are_empty"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

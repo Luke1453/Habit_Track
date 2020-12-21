@@ -2,36 +2,30 @@ package com.lake1453.habit_track.fragments
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.emoji.text.EmojiCompat
 import androidx.lifecycle.ViewModelProvider
 import com.lake1453.habit_track.R
 import com.lake1453.habit_track.dialogs.EmptyFieldsDialog
-import com.lake1453.habit_track.helperActivities.SignInActivity
 import com.lake1453.habit_track.model.Habit
-import com.lake1453.habit_track.viewModel.CreateHabitViewModel
-import kotlinx.android.synthetic.main.activity_sign_in.*
-import java.text.DateFormat
+import com.lake1453.habit_track.viewModel.HabitViewModel
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.util.*
-import kotlin.reflect.typeOf
 
 class CreateHabit : Fragment() {
 
-    private lateinit var viewModel: CreateHabitViewModel
+    private lateinit var viewModel: HabitViewModel
     private lateinit var nameEditText: EditText
     private lateinit var descEditText: EditText
     private lateinit var startTimeTextView: TextView
     private lateinit var startTime: Date
     private lateinit var repeatCheckBox: CheckBox
     private lateinit var repeatPeriodSpinner: Spinner
+    val sdf = SimpleDateFormat.getDateTimeInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +33,7 @@ class CreateHabit : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_create_habit, container, false)
-        viewModel = ViewModelProvider(this).get(CreateHabitViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(HabitViewModel::class.java)
 
         //setting data vals
         nameEditText = view.findViewById(R.id.habit_name)
@@ -48,7 +42,6 @@ class CreateHabit : Fragment() {
         repeatCheckBox = view.findViewById(R.id.habit_repeat_check)
         repeatPeriodSpinner = view.findViewById(R.id.repeat_dropdown)
 
-        val sdf = SimpleDateFormat.getDateTimeInstance()
         val currentDate = sdf.format(Date())
 
         startTimeTextView.text = "Date: " + currentDate
@@ -94,6 +87,7 @@ class CreateHabit : Fragment() {
                 val pickedDateTime = Calendar.getInstance()
                 pickedDateTime.set(year, month, day, hour, minute)
                 startTime = pickedDateTime.time
+                startTimeTextView.text = "Date: " + sdf.format(startTime)
             }, startHour, startMinute, true).show()
         }, startYear, startMonth, startDay).show()
     }

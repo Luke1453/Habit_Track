@@ -25,10 +25,10 @@ object HabitRepo {
         return db.collection("Users/${user!!.uid}/Habits")
     }
 
-    fun removeFromHabit(habit: Habit): Task<Void> {
+    fun removeHabit(habitID: Long): Task<Void> {
         val document = db.
         collection("Users/${user!!.uid}/Habits").
-        document("${habit.id}")
+        document("$habitID")
 
         return document.delete()
     }

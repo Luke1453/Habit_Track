@@ -1,39 +1,48 @@
 package com.lake1453.habit_track.fragments
 
+import android.annotation.SuppressLint
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.lake1453.habit_track.R
+import com.lake1453.habit_track.adapters.AllHabitsAdapter
+import com.lake1453.habit_track.dialogs.DeleteHabitDialog
+import com.lake1453.habit_track.model.Habit
+import com.lake1453.habit_track.viewModel.HabitViewModel
+import kotlinx.android.synthetic.main.fragment_view_all_habits.*
+import kotlinx.android.synthetic.main.fragment_view_all_habits.habit_recycleView
+import kotlinx.android.synthetic.main.fragment_view_habits.*
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class ViewHabits : Fragment(), AllHabitsAdapter.Interaction {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ViewHabits.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ViewHabits : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var viewModel: HabitViewModel
+    private var date: Date = Date()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view: View = inflater.inflate(R.layout.fragment_view_habits, container, false)
+        return inflater.inflate(R.layout.fragment_view_habits, container, false)
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         val createFloatingBtn: FloatingActionButton = view.findViewById(R.id.createNew)
         createFloatingBtn.setOnClickListener {
             val createHabitFragment = CreateHabit()
@@ -41,27 +50,45 @@ class ViewHabits : Fragment() {
             fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, createHabitFragment).commit()
         }
 
-        // Inflate the layout for this fragment
-        return view
-    }
+        viewModel = ViewModelProvider(this).get(HabitViewModel::class.java)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment viewHabits.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ViewHabits().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        val allHabitsAdapter: AllHabitsAdapter by lazy { AllHabitsAdapter(this) }
+
+        viewModel.getHabitListByDay(date).observe(viewLifecycleOwner, {
+            allHabitsAdapter.swapData(it)
+        })
+
+        habit_recycleView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = allHabitsAdapter
+        }
+
+        set_date_time_btn_today_habit.setOnClickListener {
+
+            val currentDateTime = Calendar.getInstance()
+            val startYear = currentDateTime.get(Calendar.YEAR)
+            val startMonth = currentDateTime.get(Calendar.MONTH)
+            val startDay = currentDateTime.get(Calendar.DAY_OF_MONTH)
+
+            DatePickerDialog(requireContext(), DatePickerDialog.OnDateSetListener { _, year, month, day ->
+                val pickedDateTime = Calendar.getInstance()
+                pickedDateTime.set(year, month, day)
+                date = pickedDateTime.time
+
+                val sdf = SimpleDateFormat("yyyy-MM-dd")
+                val currentDate = sdf.format(date)
+                date_time_view_today_habit.text = "Date: $currentDate"
+
+
+
+                viewModel.getHabitListByDay(date).observe(viewLifecycleOwner, {
+                    allHabitsAdapter.swapData(it)
+                })
+            }, startYear, startMonth, startDay).show()
+
+
+
+
+        }
     }
 }

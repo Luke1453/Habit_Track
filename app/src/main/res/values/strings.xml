@@ -38,6 +38,10 @@
     <string name="repeat_checbox_text">Repeat Habit?</string>
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
+    <string name="your_habits">Your Habits</string>
+    <string name="set_date">set date</string>
+    <string name="some_fields_are_empty">Some Fields are Empty</string>
+    <string name="date_today">Date: Today</string>
 
     <string-array name="habit_repeat_period">
         <item>1 Day</item>
