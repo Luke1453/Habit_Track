@@ -1,4 +1,4 @@
-package com.lake1453.habit_track.helper_activities
+package com.lake1453.habit_track.helperActivities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Habit Track</string>
     <string name="create_habit__appbar_label">Create New Habit &#10024;</string>
+    <string name="settings__appbar_label">Settings &#10024;</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_sign_in">SignInActivity</string>
+
 
     <string name="sign_in_with_google_text">Sign In With Google</string>
     <string name="sign_in_with_github_text">Sign In With Github</string>
@@ -28,4 +30,22 @@
     <string name="view_habits">View Habits</string>
     <string name="sign_in_with_facebook">sign in with facebook</string>
     <string name="please_enter_your_email">Please Enter Your Email</string>
+    <string name="create_new_habit_or_task">Create New Habit Or Task &#10024;</string>
+    <string name="create_new_habit">Create New Habit &#10024;</string>
+    <string name="create_habit_name_hint">Name</string>
+    <string name="create_habit_desc_hint">Description</string>
+    <string name="set_date_btn_text_create_habit">Set Date And Time</string>
+    <string name="repeat_checbox_text">Repeat Habit?</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">Ok</string>
+
+    <string-array name="habit_repeat_period">
+        <item>1 Day</item>
+        <item>2 Days</item>
+        <item>3 Days</item>
+        <item>4 Days</item>
+        <item>5 Days</item>
+        <item>6 Days</item>
+        <item>7 Days</item>
+    </string-array>
 </resources>

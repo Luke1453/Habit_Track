@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="text_size">16dp</dimen>
-    <dimen name="spacing_small">16</dimen>
+    <dimen name="text_size">16sp</dimen>
+    <dimen name="text_size_big">48sp</dimen>
+    <dimen name="spacing_small">16dp</dimen>
+    <dimen name="spacing">24dp</dimen>
+
     <!--
     Because the window insets on round devices are larger than 15dp, this padding only applies
     to square screens.
