@@ -59,16 +59,27 @@ class HabitViewModel : ViewModel() {
         return habitList
     }
 
-    fun getHabitListByDay(reqDate: Date): LiveData<List<Habit>> {
+    fun getHabitListByDayAndType(reqDate: Date, type: Int): LiveData<List<Habit>> {
+
+        val tempHabitList: MutableList<Habit> = mutableListOf()
+
         habitRepo.getHabits().addSnapshotListener { value, _ ->
-            val tempHabitList: MutableList<Habit> = mutableListOf()
             value!!.forEach { document ->
                 val habit = document.toObject(Habit::class.java)
+                Log.w(TAG, "req type =" + type.toString())
+                Log.w(TAG, "habit type" + habit.habitType.toString())
+
                 if (checkHabitDate(reqDate, habit)) {
-                    tempHabitList.add(habit)
+                    if(type == habit.habitType || type == -1){
+                        tempHabitList.add(habit)
+                    }
+
+
+
                 }
+
+                habitList.value = tempHabitList
             }
-            habitList.value = tempHabitList
         }
         return habitList
     }

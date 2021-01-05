@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Spinner
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -15,13 +17,19 @@ import com.lake1453.habit_track.adapters.AllHabitsAdapter
 import com.lake1453.habit_track.viewModel.HabitViewModel
 import kotlinx.android.synthetic.main.fragment_view_all_habits.habit_recycleView
 import kotlinx.android.synthetic.main.fragment_view_habits.*
+import kotlinx.android.synthetic.main.habit_list_tile.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ViewHabits : Fragment(), AllHabitsAdapter.Interaction {
 
     private lateinit var viewModel: HabitViewModel
+    private lateinit var allHabitsAdapter: AllHabitsAdapter
+
+    private lateinit var typeDropdown: Spinner
+
     private var date: Date = Date()
+    private var type: Int = -1;
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,10 +52,27 @@ class ViewHabits : Fragment(), AllHabitsAdapter.Interaction {
         }
 
         viewModel = ViewModelProvider(this).get(HabitViewModel::class.java)
+        allHabitsAdapter = AllHabitsAdapter(this)
 
-        val allHabitsAdapter: AllHabitsAdapter by lazy { AllHabitsAdapter(this) }
+        typeDropdown = view.findViewById(R.id.type_dropdown)
+        typeDropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                type = -1
+            }
 
-        viewModel.getHabitListByDay(date).observe(viewLifecycleOwner, {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val typeArray = context?.resources?.let { arrayOf<String>(*it.getStringArray(R.array.habit_types)) }
+
+                type = typeDropdown.selectedItemId.toInt() + 1
+
+                viewModel.getHabitListByDayAndType(date, type).observe(viewLifecycleOwner, {
+                    allHabitsAdapter.swapData(it)
+                })
+            }
+
+        }
+
+        viewModel.getHabitListByDayAndType(date, type).observe(viewLifecycleOwner, {
             allHabitsAdapter.swapData(it)
         })
 
@@ -55,6 +80,8 @@ class ViewHabits : Fragment(), AllHabitsAdapter.Interaction {
             layoutManager = LinearLayoutManager(context)
             adapter = allHabitsAdapter
         }
+
+
 
         set_date_time_btn_today_habit.setOnClickListener {
 
@@ -74,13 +101,19 @@ class ViewHabits : Fragment(), AllHabitsAdapter.Interaction {
 
 
 
-                viewModel.getHabitListByDay(date).observe(viewLifecycleOwner, {
+                viewModel.getHabitListByDayAndType(date, type).observe(viewLifecycleOwner, {
                     allHabitsAdapter.swapData(it)
                 })
             }, startYear, startMonth, startDay).show()
 
 
+        }
 
+        fun updateRecycleView(){
+
+            viewModel.getHabitListByDayAndType(date, type).observe(viewLifecycleOwner, {
+                allHabitsAdapter.swapData(it)
+            })
 
         }
     }
