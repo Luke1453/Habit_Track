@@ -21,6 +21,16 @@ object HabitRepo {
         return document.set(habit)
     }
 
+    fun updateHabit(habit: Habit): Task<Void> {
+        val document = db.
+        collection("Users").
+        document(user!!.uid).
+        collection("Habits").
+        document("${habit.id}")
+
+        return document.set(habit)
+    }
+
     fun getHabits(): CollectionReference {
         return db.collection("Users/${user!!.uid}/Habits")
     }

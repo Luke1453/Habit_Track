@@ -9,7 +9,7 @@ data class Habit(
     var name: String = "",
     var description: String = "",
     var startTime: Date = Date(),
-    val repeatable: Boolean = false,
+    var repeatable: Boolean = false,
     var repeatPeriod: Int = 0
 
 )

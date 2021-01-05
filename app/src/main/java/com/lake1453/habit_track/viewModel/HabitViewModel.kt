@@ -37,6 +37,15 @@ class HabitViewModel : ViewModel() {
         }
     }
 
+    fun updateHabit(habitData: Habit) {
+        Log.i(TAG, habitData.toString())
+        habitRepo.updateHabit(habitData).addOnSuccessListener {
+            Log.w(TAG, "Habit updated in DB")
+        }.addOnFailureListener {
+            Log.w(TAG, "Habit not updated in DB: $it")
+        }
+    }
+
     fun getHabitList(): LiveData<List<Habit>> {
         habitRepo.getHabits().addSnapshotListener { value, _ ->
             val tempHabitList: MutableList<Habit> = mutableListOf()

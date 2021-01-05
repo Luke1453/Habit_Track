@@ -9,8 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lake1453.habit_track.R
 import com.lake1453.habit_track.adapters.AllHabitsAdapter
-import com.lake1453.habit_track.dialogs.DeleteHabitDialog
-import com.lake1453.habit_track.dialogs.EmptyFieldsDialog
+import com.lake1453.habit_track.dialogs.EditHabitDialog
 import com.lake1453.habit_track.model.Habit
 import com.lake1453.habit_track.viewModel.HabitViewModel
 import kotlinx.android.synthetic.main.fragment_view_all_habits.*
@@ -45,16 +44,17 @@ class ViewAllHabits : Fragment(), AllHabitsAdapter.Interaction {
             adapter = allHabitsAdapter
 
             allHabitsAdapter.onItemClick = { habit ->
-                deleteHabitLogic(habit)
+                val editHabitDialog = EditHabitDialog(habit)
+                editHabitDialog.show(activity?.supportFragmentManager!!, "Delete Habit")
+
+                // updating recycle view
+                viewModel.getHabitList().observe(viewLifecycleOwner, {
+                    allHabitsAdapter.swapData(it)
+                })
             }
 
         }
 
-    }
-
-    private fun deleteHabitLogic(habit: Habit){
-        val emptyFieldsDialog = DeleteHabitDialog(habit.id)
-        emptyFieldsDialog.show(activity?.supportFragmentManager!!, "Delete Habit")
     }
 
 }

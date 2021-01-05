@@ -2,27 +2,20 @@ package com.lake1453.habit_track.fragments
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.lake1453.habit_track.R
 import com.lake1453.habit_track.adapters.AllHabitsAdapter
-import com.lake1453.habit_track.dialogs.DeleteHabitDialog
-import com.lake1453.habit_track.model.Habit
 import com.lake1453.habit_track.viewModel.HabitViewModel
-import kotlinx.android.synthetic.main.fragment_view_all_habits.*
 import kotlinx.android.synthetic.main.fragment_view_all_habits.habit_recycleView
 import kotlinx.android.synthetic.main.fragment_view_habits.*
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.util.*
 
 class ViewHabits : Fragment(), AllHabitsAdapter.Interaction {
