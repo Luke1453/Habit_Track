@@ -10,7 +10,8 @@ data class Habit(
     var description: String = "",
     var startTime: Date = Date(),
     var repeatable: Boolean = false,
-    var repeatPeriod: Int = 0
+    var repeatPeriod: Int = 0,
+    var habitType: Int = 0
 
 )
 

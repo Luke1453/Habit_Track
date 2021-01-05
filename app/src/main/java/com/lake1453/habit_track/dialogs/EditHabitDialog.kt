@@ -32,6 +32,7 @@ class EditHabitDialog(private val habit: Habit) : DialogFragment() {
     private lateinit var startTimeTextView: TextView
     private lateinit var repeatCheckBox: CheckBox
     private lateinit var repeatPeriodSpinner: Spinner
+    private lateinit var typeSpinner: Spinner
 
     private var wasDateChanged: Boolean = false
     private lateinit var newDate: Date
@@ -49,12 +50,14 @@ class EditHabitDialog(private val habit: Habit) : DialogFragment() {
         startTimeTextView = view.date_time_view
         repeatCheckBox = view.habit_repeat_check
         repeatPeriodSpinner = view.repeat_dropdown
+        typeSpinner = view.type_dropdown
 
         // Populating fields
         nameEditText.setText(habit.name)
         descEditText.setText(habit.description)
         repeatCheckBox.isChecked = habit.repeatable
         repeatPeriodSpinner.setSelection(habit.repeatPeriod - 1)
+        typeSpinner.setSelection(habit.habitType - 1)
 
         // dealing with date
         startTimeTextView.text = "Date: " + sdf.format(habit.startTime)
@@ -63,7 +66,14 @@ class EditHabitDialog(private val habit: Habit) : DialogFragment() {
             dismiss()
         }
         view.edit_habit_save_btn.setOnClickListener {
-            updateHabit()
+            val name: String = nameEditText.text.toString()
+            val desc: String = descEditText.text.toString()
+            if (name.isNotBlank() && desc.isNotBlank()) {
+                updateHabit()
+            } else {
+                val emptyFieldsDialog = EmptyFieldsDialog()
+                emptyFieldsDialog.show(activity?.supportFragmentManager!!, "emptyFields")
+            }
         }
         view.edit_habit_delete_btn.setOnClickListener {
             viewModel.removeHabit(habit.id)
@@ -95,13 +105,14 @@ class EditHabitDialog(private val habit: Habit) : DialogFragment() {
         }, startYear, startMonth, startDay).show()
     }
 
-    private fun updateHabit(){
+    private fun updateHabit() {
         habit.name = nameEditText.text.toString()
         habit.description = descEditText.text.toString()
         habit.repeatable = repeatCheckBox.isChecked == true
         habit.repeatPeriod = repeatPeriodSpinner.selectedItemId.toInt() + 1
+        habit.habitType = typeSpinner.selectedItemId.toInt() + 1
 
-        if (wasDateChanged){
+        if (wasDateChanged) {
             habit.startTime = newDate
         }
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="habit_types">
+        <item>Uncategorized</item>
+        <item>Work</item>
+        <item>School</item>
+        <item>Home</item>
+        <item>Outdoors</item>
+    </string-array>
+</resources>

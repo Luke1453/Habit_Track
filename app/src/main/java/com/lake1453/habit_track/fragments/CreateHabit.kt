@@ -13,6 +13,9 @@ import com.lake1453.habit_track.R
 import com.lake1453.habit_track.dialogs.EmptyFieldsDialog
 import com.lake1453.habit_track.model.Habit
 import com.lake1453.habit_track.viewModel.HabitViewModel
+import kotlinx.android.synthetic.main.dialog_edit_habit.view.*
+import kotlinx.android.synthetic.main.dialog_edit_habit.view.type_dropdown
+import kotlinx.android.synthetic.main.fragment_create_habit.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,6 +28,8 @@ class CreateHabit : Fragment() {
     private lateinit var startTime: Date
     private lateinit var repeatCheckBox: CheckBox
     private lateinit var repeatPeriodSpinner: Spinner
+    private lateinit var typeSpinner: Spinner
+
     val sdf = SimpleDateFormat.getDateTimeInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +46,7 @@ class CreateHabit : Fragment() {
         startTimeTextView = view.findViewById(R.id.date_time_view)
         repeatCheckBox = view.findViewById(R.id.habit_repeat_check)
         repeatPeriodSpinner = view.findViewById(R.id.repeat_dropdown)
+        typeSpinner = view.type_dropdown
 
         val currentDate = sdf.format(Date())
 
@@ -99,8 +105,9 @@ class CreateHabit : Fragment() {
         val startTime: Date = this.startTime
         val repeatable: Boolean = repeatCheckBox.isChecked
         val repeatPeriod: Int = repeatPeriodSpinner.selectedItemId.toInt() + 1
+        val habitType: Int = typeSpinner.selectedItemId.toInt() +1
 
-        val habit = Habit(id, name, desc, startTime, repeatable, repeatPeriod)
+        val habit = Habit(id, name, desc, startTime, repeatable, repeatPeriod, habitType)
         viewModel.createHabit(habit)
         returnToViewFrag() //may need to comment this line
     }

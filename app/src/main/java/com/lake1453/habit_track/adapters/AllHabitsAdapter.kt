@@ -53,10 +53,14 @@ class AllHabitsAdapter(private val interaction: Interaction? = null) : ListAdapt
             val dateString = formatter.format(item.startTime)
             habit_start_time.text = "Habit start time: ${dateString}"
 
-            if(item.repeatable){
+            val typeArray = arrayOf<String>(*context.resources.getStringArray(R.array.habit_types))
+
+            habit_type.text = "Habit Type: " + typeArray[item.habitType-1]
+
+            if (item.repeatable) {
                 habit_repeatable.text = "Habit is repeatable"
                 habit_repeat_period.text = "Habit repeats every ${item.repeatPeriod} days"
-            }else{
+            } else {
                 habit_repeatable.text = "Habit is not repeatable"
                 habit_repeat_period.visibility = View.GONE
 
